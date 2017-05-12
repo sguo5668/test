@@ -1,0 +1,95 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@model IEnumerable<DIA.Web.ClaimHistory>
+@inject IViewLocalizer Localizer
+ 
+
+@{
+    ViewData["Title"] = Localizer[ResourceKeys.ClaimHome];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Step1">Create DI Claim</a>
+</p>
+
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+        
+        </p>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClaimIDNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClaimType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClaimantID)
+                </th>
+			<th>
+				@Html.DisplayNameFor(model => model.Id)
+			</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EffectiveDate)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClaimIDNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClaimType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClaimantID)
+            </td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Id)
+			</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveDate)
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>
+
+@*@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>*@
+
+<div class="<col-sm></col-sm>-6 text-right">
+	@await Html.PartialAsync("_SelectLanguagePartial")
+</div>
